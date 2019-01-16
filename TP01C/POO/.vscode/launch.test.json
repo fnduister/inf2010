@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "POO",
+                "projectName": "POO",
+                "workingDirectory": "c:\\Users\\fabrice\\Desktop\\Poly\\inf2010\\TP01C\\POO",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "POO",
+                "projectName": "POO",
+                "workingDirectory": "c:\\Users\\fabrice\\Desktop\\Poly\\inf2010\\TP01C\\POO",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}
