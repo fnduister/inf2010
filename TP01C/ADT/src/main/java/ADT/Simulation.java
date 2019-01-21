@@ -3,16 +3,18 @@ package ADT;
 import java.util.Random;
 
 public class Simulation {
-    private static Random random;
+    private static Random random = new Random();
 
     // Retourne un nombre réel aléatoire uniformément dans [0,1[
     public static double uniform() {
         // completer
+        return 0;
     }
 
     // Retourne un nombre entier aléatoire uniformément dans [0,n[
     public static int uniform(int n) {
         // completer
+        return 0;
     }
 
     // Retourne un entier long aléatoire uniformément dans [0, n[.
@@ -40,16 +42,19 @@ public class Simulation {
     // Bernoulli
     public static boolean bernoulli(double p) {
         // completer
+        return true;
     }
 
     public static Compteur max(Compteur x, Compteur y) {
         // completer
+        return new Compteur("id");
     }
 
     public static void main(String[] args) {
         System.out.println("Hello World");
-
-        int n = 10;
+        long x = 23423423;
+        uniform(x);
+        int n = 10;long p = 12; double d = 34;
         Compteur pile = new Compteur("pile");
         Compteur face = new Compteur("face");
 
@@ -59,6 +64,11 @@ public class Simulation {
 
         Compteur pile_c = new Compteur("pile");
         Compteur face_c = new Compteur("face");
+        
+        System.out.print(uniform(34));
+        System.out.print(uniform(34));
+        System.out.print(uniform(34));
+
 
         // Les instructions du simulation
         // completer
