@@ -64,8 +64,12 @@ public class File<AnyType> implements Iterable<AnyType> {
     }
 
     public AnyType defile() {
+        if (premierElement == null) {
+            throw new NoSuchElementException();
+        }
         AnyType ancienneDonnee = premierElement.donnee;
         premierElement = premierElement.suivant;
+        nbrElements--;
         return ancienneDonnee;
     }
 
@@ -107,6 +111,11 @@ public class File<AnyType> implements Iterable<AnyType> {
         File<Integer> nombres = new File<Integer>();
         if (nombres.estVide()) {
             System.out.print("le sac est vide" + System.lineSeparator());
+        }
+        try {
+            nombres.defile();
+        } catch (Error err) {
+            System.out.print("votre sac est vide: ");
         }
         nombres.enfile(32);
         System.out.print("nombre d'elements: " + nombres.nbrElements + System.lineSeparator());

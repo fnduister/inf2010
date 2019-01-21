@@ -8,7 +8,7 @@ public class Pile<AnyType> implements Iterable<AnyType> {
     private int nbrElements; // nombre d'element dans le sac
 
     private static class Noeud<AnyType> {
-    public Noeud(AnyType donnee, Noeud<AnyType> suivant) {
+        public Noeud(AnyType donnee, Noeud<AnyType> suivant) {
             this.suivant = suivant;
             this.donnee = donnee;
         }
@@ -40,11 +40,24 @@ public class Pile<AnyType> implements Iterable<AnyType> {
     }
 
     /**
-     * Ajoute un element dans le sac.
+     * Ajoute un element dans le top de la pile.
      */
-    public void add(AnyType donnee) {
+    public void enfile(AnyType donnee) {
         dernierNoeud = new Noeud<AnyType>(donnee, dernierNoeud);
         nbrElements++;
+    }
+
+    /**
+     * retire le dernier element de la pile.
+     */
+    public AnyType defile() {
+        if (dernierNoeud == null) {
+            throw new NoSuchElementException();
+        }
+        AnyType ancienneDonnee = dernierNoeud.donnee;
+        dernierNoeud = dernierNoeud.suivant;
+        nbrElements--;
+        return ancienneDonnee;
     }
 
     /**
@@ -53,6 +66,10 @@ public class Pile<AnyType> implements Iterable<AnyType> {
      */
     public Iterator<AnyType> iterator() {
         return new ListIterator<AnyType>(dernierNoeud);
+    }
+
+    public AnyType voirDernierElement(){
+        return dernierNoeud.donnee;
     }
 
     // an iterator, doesn't implement remove() since it's optional
@@ -86,15 +103,18 @@ public class Pile<AnyType> implements Iterable<AnyType> {
         if (nombres.estVide()) {
             System.out.print("le sac est vide" + System.lineSeparator());
         }
-        nombres.add(32);
-        System.out.print("nombre d'elements" + nombres.nbrElements + System.lineSeparator());
-        nombres.add(45);
-        nombres.add(409);
-        nombres.add(4555);
-        nombres.add(4509);
+        nombres.enfile(32);
+        System.out.print("nombre d'elements: " + nombres.nbrElements + System.lineSeparator());
+        nombres.enfile(45);
+        nombres.enfile(409);
+        nombres.enfile(4555);
+        nombres.enfile(4509);
         for (Integer nombre : nombres) {
             System.out.print(nombre + System.lineSeparator());
         }
-    }
+
+        System.out.print("nombre qu'on vient de defiler: " + nombres.defile() + System.lineSeparator());
+        System.out.print("nouveau dernier element: " + nombres.voirDernierElement() + System.lineSeparator());
+     }
 
 }
