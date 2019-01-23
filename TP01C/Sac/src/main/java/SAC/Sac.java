@@ -48,14 +48,12 @@ public class Sac<AnyType> implements Iterable<AnyType> {
     }
 
     /**
-     * @return an iterator that iterates over the AnyTypes in this Sac in arbitrary
-     *         order
+     * @return un iterateur qui iterate à travers tous les éléments du sac
      */
     public Iterator<AnyType> iterator() {
         return new ListIterator<AnyType>(dernierNoeud);
     }
 
-    // an iterator, doesn't implement remove() since it's optional
     private class ListIterator<AnyType> implements Iterator<AnyType> {
         private Noeud<AnyType> courant;
 
@@ -87,7 +85,7 @@ public class Sac<AnyType> implements Iterable<AnyType> {
             System.out.print("le sac est vide" + System.lineSeparator());
         }
         nombres.add(32);
-        System.out.print("nombre d'elements" + nombres.nbrElements + System.lineSeparator());
+        System.out.print("nombre d'elements " + nombres.nbrElements + System.lineSeparator());
         nombres.add(45);
         nombres.add(409);
         nombres.add(4555);
@@ -96,5 +94,4 @@ public class Sac<AnyType> implements Iterable<AnyType> {
             System.out.print(nombre + System.lineSeparator());
         }
     }
-
 }
