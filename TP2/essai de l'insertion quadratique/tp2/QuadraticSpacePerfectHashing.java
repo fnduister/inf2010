@@ -18,6 +18,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
 
    QuadraticSpacePerfectHashing(ArrayList<AnyType> array)
    {
+	 
       allocateMemory(array);
    }
 
@@ -35,14 +36,22 @@ public class QuadraticSpacePerfectHashing<AnyType>
    {
       generator = new Random( System.nanoTime() );
       a = b = m = n = 0; 
+      //a enlever plus tard 
+      
+      
       items = null;
    }
 
    private int myhash( AnyType x ) { 
-	   
+    
       int hashVal = x.hashCode( );//trouver  le code hash code de l'objet .
+      
       hashVal=((a*hashVal+b)%p)%m; //calculer la position de l'objet
+
       if( hashVal < 0 ) hashVal += m;
+      if( hashVal > m ) hashVal -= m;
+      
+      
       return hashVal;
       }
    private int findPos(AnyType x)
@@ -54,26 +63,29 @@ public class QuadraticSpacePerfectHashing<AnyType>
             
             //la position courante currentPos
             int currentPos =myhash(x);
-             
-            int offset=1;
-   
+  
+             int offset=1;
+           
             //vérifier que la position courante est comprise entre 0 et m exclus
-             while (items[currentPos]!=null && !items[currentPos].equals(x)){
+            
+            while(currentPos <0 && currentPos >m) {
                currentPos+=offset; 
                offset +=2;
    
-               if (currentPos>=m)
-                  currentPos-=m;
-              
+              // while(currentPos <0 && currentPos >m) {
+                   if( currentPos < 0 )  currentPos += m;
+                   if( currentPos > m ) currentPos -= m;
+                
             }
    
             return  currentPos;
-   
-         }
+            }
+         
+         
            
    
          
-      return 0;
+      return 0;//retourner moins -1 si on entre pas de valeur.
    }
 
    public boolean contains(AnyType x )
@@ -81,8 +93,9 @@ public class QuadraticSpacePerfectHashing<AnyType>
       if( n == 0 ) return false; 
 
       int index = findPos(x);
+ 
+      return (( items[index] != null ) &&( items[index].equals(x) ));
 
-      return ( ( items[index] != null ) && ( items[index].equals(x) ) );
    }
 
    @SuppressWarnings("unchecked")
@@ -102,20 +115,22 @@ public class QuadraticSpacePerfectHashing<AnyType>
          return;
       }
 
-      while( unsuccessfulMemoryAllocation( array ) ); // les elements doivent pouvoir tous etre inserer pour un a et un b différents 
+      	while( unsuccessfulMemoryAllocation( array ) ) {
+      		//resoudre la collision 
+      	}; // les elements doivent pouvoir tous etre inserer pour un a et un b différents 
    }
 
    @SuppressWarnings("unchecked")
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
       // A completer
-	   if(a==0 && b==0  ) {// si le tableau non initialis�
+	  // if(a==0 && b==0  ) {// si le tableau non initialis�
       generator=new Random(); //instancier un objet random dont le seed est aléatoire 
       a=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
       b=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
           
       
-	   }
+	 //  }
 
       //allouer le  items de la taille m
       items = (AnyType[]) new Object[m];
@@ -125,9 +140,11 @@ public class QuadraticSpacePerfectHashing<AnyType>
          int index =findPos(array.get(i));
         
          if(items[index]!=null) //si le tableau item contient deja un element ,il y a collision 
-            return true; // cet echec n"aura pas lieu car findpos trouvera toujours une position ideale
-         else
+            return true; // cet echec n'aura pas lieu car findpos trouvera toujours une position ideale
+         else {
             items[index]=array.get(i);
+           
+         }
 
       }
 

@@ -9,7 +9,8 @@ public class HashFunctions
    public static void main(String[] args) 
    {
       // Donnees brutes
-      Integer[] array = { 100,  75,  64,  25,  36, 101,  11,  92,  
+	   //Integer[] array = { 75,  64};
+      Integer[] array = {100,  75,  64,  25,  36, 101,  11,  92,  
             200, 175, 164, 125, 136, 201, 111, 192,
             300, 275, 264, 225, 236, 301, 311, 292};
 
@@ -44,7 +45,7 @@ public class HashFunctions
 
       // Affichage de pfhash
       System.out.println(e);
-
+   
       /**
        * Questions 1.2.1
        */
@@ -71,6 +72,7 @@ public class HashFunctions
       
       // Affichage de pfhash
       System.out.println(pfhash);
+      
 
       /**
        * Question 1.3.1 (confirmation des resultats ) 

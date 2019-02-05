@@ -35,6 +35,7 @@ public class LinearSpacePerfectHashing<AnyType>
    {
       generator = new Random( System.nanoTime() );
       a = b = n = memorySize = 0; 
+      
       data = null;
    }
 
@@ -43,34 +44,35 @@ public class LinearSpacePerfectHashing<AnyType>
       int hashVal = x.hashCode( );//trouver  le code hash code de l'objet .
       hashVal=((a*hashVal+b)%p)%n; //calculer la position de l'objet
       if( hashVal < 0 ) hashVal += n;
+      if (hashVal>n) hashVal-=n;
       return hashVal;
    }
    private int findPos(AnyType x)
    {
       // completer
       if (x!=null){
+    	  if(a==0 && b==0  ) { 
+	         generator=new Random(); //instancier un objet random dont le seed est aléatoire 
+	         a=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
+	         b=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
+	        // n=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
 
-         generator=new Random(); //instancier un objet random dont le seed est aléatoire 
-         a=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
-         b=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
-        // n=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
-
-      
+    	  }
 
          int currentPos=myhash(x);// la position courante currentPos
          
-         
-          
          int offset=1;
-
-         //vérifier que la position courante est comprise entre 0 et n exclus
-          while (data[currentPos]!=null && !data[currentPos].equals(x)){
-            currentPos+=offset; 
+         while(currentPos <0 && currentPos >n ) {
+             currentPos+=offset; 
             
-
-            if (currentPos>=n)
-               currentPos-=n;
-         }
+ 
+            // while(currentPos <0 && currentPos >m) {
+                 if( currentPos < 0 )  currentPos += n;
+                 if( currentPos > n ) currentPos -= n;
+              
+          }
+        
+     
 
          return  currentPos;
 
@@ -84,7 +86,8 @@ public class LinearSpacePerfectHashing<AnyType>
    {      
       // completer
     int currentPos=findPos(x);
-    
+    if( n == 0 ) return false; 
+
     if(data[currentPos]!=null) {
     	if(data[currentPos].contains(x)) //si la position de l'objet dans le tableau est trouvé alors l'objet existe
 	        return true;
@@ -106,37 +109,33 @@ public class LinearSpacePerfectHashing<AnyType>
       if(n == 1)
       {
          // Completer
-    	  data[n].setArray(array);
-    	 
-
-
+    	  data[0].setArray(array);
+   	     //data[n]=new QuadraticSpacePerfectHashing(array);
+    	
          return;
       }
       else {
-    	  // enleer
-    	  int index=0;
-    	  for (int i=0;i<n;i++) {//on parcourt le tableau
+    	
+    	  
+    	  for (int i=0;i<array.size();i++) {//on parcourt le tableau
+    		  
     		  //on cree un tableau de quadraticspace qui contient tout les objets a la meme position
-    		  ////QuadraticSpacePerfectHashing tableau= new QuadraticSpacePerfectHashing();
+ 
     		  ArrayList<AnyType> table=new ArrayList<AnyType>();
-    		  for(int j=0;j<n;j++) {// on parcourt a nouveau le tableau pour pouvoir comparer chaque element i avec tout les elements j 
+    		  for(int j=0;j<array.size();j++) {// on parcourt a nouveau le tableau pour pouvoir comparer chaque element i avec tout les elements j 
     			 
-    			  if(findPos(array.get(i))==findPos(array.get(j))) { //si deux elements different du tableau array sont en enregistrement synonyme
-    				 table.add(array.get(j));//ajoute l'element en fin de liste 
+    			  if(i==findPos(array.get(j))) { //si deux elements different du tableau array sont en enregistrement synonyme
+    				 
+    				  table.add(array.get(j));//ajoute l'element en fin de liste 
+    				  
     				 memorySize++;//on met � jour la taille de la m�moire allou�777b
-    				 ////System.out.println(array.get(i));test
+    				
     			 }
     			
-    		  }
-    		  for(AnyType item:table)
-    			  System.out.println(item+",");
-    		  
-    		  data[i]=new QuadraticSpacePerfectHashing(table);
-    		 for(AnyType item:table)
-    		  System.out.println(item+",");
-    		///  //data[i].setArray(table);//on met a jour le tableau data//on met dans un tableau quadratic a la fin de la boucle 
+    		  } 
     		
-    		 System.out.println("position "+ index++);
+    		   data[i]=new QuadraticSpacePerfectHashing(table);
+    		  
     	  }
     	  
     	  
@@ -159,7 +158,7 @@ public class LinearSpacePerfectHashing<AnyType>
       int indice=0;
       for(QuadraticSpacePerfectHashing<AnyType> item : data) 
           if( item != null ) 
-             sb.append("-"+ (indice++) +"->"+item.toString() + "/n");
+             sb.append("-"+ (indice++) +"->"+item.toString() + System.lineSeparator());
       return sb.toString();
    }
 }
