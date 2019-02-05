@@ -39,9 +39,10 @@ public class QuadraticSpacePerfectHashing<AnyType>
    }
 
    private int myhash( AnyType x ) { 
-      int hashVal = x.hashCode( );
-      hashVal %= n;
-      if( hashVal < 0 ) hashVal += n;
+	   
+      int hashVal = x.hashCode( );//trouver  le code hash code de l'objet .
+      hashVal=((a*hashVal+b)%p)%m; //calculer la position de l'objet
+      if( hashVal < 0 ) hashVal += m;
       return hashVal;
       }
    private int findPos(AnyType x)
@@ -51,12 +52,8 @@ public class QuadraticSpacePerfectHashing<AnyType>
          if (x!=null){
 
             
-   
-            
-            //trouver  le code hash code de l'objet .
-            int x_int=myhash(x);
-            //calculer la position courante currentPos
-            int currentPos =((a*x_int+b)%p)%n;
+            //la position courante currentPos
+            int currentPos =myhash(x);
              
             int offset=1;
    
@@ -67,6 +64,7 @@ public class QuadraticSpacePerfectHashing<AnyType>
    
                if (currentPos>=m)
                   currentPos-=m;
+              
             }
    
             return  currentPos;
@@ -111,24 +109,25 @@ public class QuadraticSpacePerfectHashing<AnyType>
    private boolean unsuccessfulMemoryAllocation(ArrayList<AnyType> array)
    {
       // A completer
+	   if(a==0 && b==0  ) {// si le tableau non initialis�
       generator=new Random(); //instancier un objet random dont le seed est aléatoire 
       a=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
       b=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
-           // n=generator.nextInt(p);//générer un nombre aléatoire entre 0 et p exclu
+          
+      
+	   }
 
       //allouer le  items de la taille m
       items = (AnyType[]) new Object[m];
 
-      for (int i=0;i<array.toArray().length;i++){
+      for (int i=0;i<array.size();i++){
 
          int index =findPos(array.get(i));
-         
+        
          if(items[index]!=null) //si le tableau item contient deja un element ,il y a collision 
-            return true; //retourner que l'echec d'allocation est vrai
+            return true; // cet echec n"aura pas lieu car findpos trouvera toujours une position ideale
          else
-            items[index]=array.get(i);//item[index]=new array[i]?? fait du sens
-
-
+            items[index]=array.get(i);
 
       }
 
