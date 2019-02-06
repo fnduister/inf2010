@@ -97,6 +97,12 @@ public class HashFunctions
       Random generator = new Random( System.nanoTime() );
       ArrayList<Integer> al = new ArrayList<Integer>();
       // Completer
+      for (int i=0;i<length;i++) {
+    	 
+    	Integer integer=new Integer(generator.nextInt());
+    	al.add(integer);
+    	  
+      }
       return al;
    }
 }

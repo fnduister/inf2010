@@ -120,7 +120,7 @@ public class LinearSpacePerfectHashing<AnyType>
     	  for (int i=0;i<array.size();i++) {//on parcourt le tableau
     		  
     		  //on cree un tableau de quadraticspace qui contient tout les objets a la meme position
- 
+    		  int nbrecollision=0;
     		  ArrayList<AnyType> table=new ArrayList<AnyType>();
     		  for(int j=0;j<array.size();j++) {// on parcourt a nouveau le tableau pour pouvoir comparer chaque element i avec tout les elements j 
     			 
@@ -128,12 +128,13 @@ public class LinearSpacePerfectHashing<AnyType>
     				 
     				  table.add(array.get(j));//ajoute l'element en fin de liste 
     				  
-    				 memorySize++;//on met à jour la taille de la mémoire alloué777b
+    				// memorySize++;//on met à jour la taille de la mémoire alloué777b
+    				nbrecollision++;
     				
     			 }
     			
     		  } 
-    		
+    		  memorySize+=nbrecollision*nbrecollision;	
     		   data[i]=new QuadraticSpacePerfectHashing(table);
     		  
     	  }
