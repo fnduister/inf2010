@@ -37,7 +37,6 @@ public class QuadraticSpacePerfectHashing<AnyType> {
       if (pos < 0) {
          pos += m;
       }
-      System.out.println("position " + pos + " value: " + x);
       return pos;
    }
 
