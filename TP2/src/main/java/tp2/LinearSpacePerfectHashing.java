@@ -41,7 +41,6 @@ public class LinearSpacePerfectHashing<AnyType> {
    }
 
    public boolean contains(AnyType x) {
-      // completer
       int currentPos = findPos(x);
       if (n == 0)
          return false;
@@ -61,6 +60,7 @@ public class LinearSpacePerfectHashing<AnyType> {
       if (array == null || array.size() == 0)
          return;
 
+      // on cree ici a et b une seule fois
       generator = new Random(); // instancier un objet random dont le seed est alÃ©atoire
       a = generator.nextInt(p);// gÃ©nÃ©rer un nombre alÃ©atoire entre 0 et p exclu
       b = generator.nextInt(p);// gÃ©nÃ©rer un nombre alÃ©atoire entre 0 et p exclu
@@ -69,23 +69,31 @@ public class LinearSpacePerfectHashing<AnyType> {
       data = new QuadraticSpacePerfectHashing[n];
 
       if (n == 1) {
-         // Completer
+         // avec un seul element on peut simplement creer une instance
          data[0] = new QuadraticSpacePerfectHashing<AnyType>(array);
          return;
       }
 
+      // on cree un tableau d'arrayList qui va etre temporaire
       ArrayList<AnyType>[] dataCopy = new ArrayList[n];
+
+      // pour chaque valeur on lui cherche une position dans le tableau temporaire
       for (AnyType value : array) {
          int position = findPos(value);
+
+         // Si a la position trouve il n'y a pas deja un array on en cree un
          if (dataCopy[position] == null) {
             dataCopy[position] = new ArrayList<AnyType>();
          }
+
+         // dans tout les cas on ajoute la valeur a notre list
          dataCopy[position].add(value);
       }
 
+      // une fois notre tableau temporaire cree on le copy dans le vrai tableau
       for (int i = 0; i < dataCopy.length; i++) {
          data[i] = new QuadraticSpacePerfectHashing<AnyType>(dataCopy[i]);
-         memorySize += data[i].memorySize();
+         memorySize += data[i].memorySize();// recupere la taille en memoire de chaque list
       }
    }
 

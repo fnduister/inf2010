@@ -33,7 +33,11 @@ public class QuadraticSpacePerfectHashing<AnyType> {
    }
 
    private int findPos(AnyType x) {
+      // on trouve la position avec la formule
       int pos = ((a * x.hashCode() + b) % p) % m;
+
+      // etant donne que le hashCode peut nous donner des valeurs negatives
+      // on incremente de m pour etre sure que la position est entre [0, m]
       if (pos < 0) {
          pos += m;
       }
@@ -81,9 +85,13 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 
       for (AnyType value : array) {
          int index = findPos(value);
+
+         // si il y a collision on recommence, pour obtenir un a et b qui empeche la
+         // collision
          if (items[index] != null) {
             return true;
          }
+         // sinon on met la valeur dans le tableau
          items[index] = value;
       }
       return false;
