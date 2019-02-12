@@ -92,6 +92,8 @@ public class HashFunctions {
       for (int i = 0; i < length; i++) {
 
          Integer integer = new Integer(generator.nextInt());
+         while (al.contains(integer))
+            integer = new Integer(generator.nextInt());
          al.add(integer);
       }
       return al;
