@@ -10,13 +10,16 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // TODO: initialisation
     // O(1)
     public CompanyNode(Integer data) {
-
+    		//money=data;
+    		//childs=new BinarySearchTree<CompanyNode>();
+    		//comment implementer worstChild;
     }
 
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
     public void buy(CompanyNode item) {
-
+    	//	childs.insert(item);//ajout de l'item à la compagnie ?? a vérifier
+    	//	money+=item.getMoney();//mise a jour du montant en banque
     }
 
     // TODO: on retourne le montant en banque de la compagnie
@@ -33,13 +36,23 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // les enfants sont afficher du plus grand au plus petit (voir TestCompany.testPrint)
     // O(n)
     public void fillStringBuilderInOrder(StringBuilder builder, String prefix) {
-
+    	 
+    	//childs.getItemsInOrder();
+    		
+    		
+    		
+    	//}
+    	
     }
 
     // TODO: on override le comparateur pour defenir l'ordre
     @Override
     public int compareTo(CompanyNode item) {
-
-        return 0;
+    	if(item.getMoney()>getMoney())
+    		return -1;
+    	else if(item.getMoney()<getMoney())
+    		return 1;
+    	else
+    		return 0;
     }
 }

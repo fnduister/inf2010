@@ -19,6 +19,7 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
     // TODO: on insere un nouvel item a partir de la racine
     // O(log(n))
     public void insert(T item) {
+    	
     	root.insert(item);
     }
 
@@ -52,6 +53,12 @@ public class BinarySearchTree<T extends Comparable<? super T> > {
     // TODO: retourner la liste d'item en String selon le bon format
     // O(n)
     public String toStringInOrder() {
+    	List<BinaryNode<T>> liste = new ArrayList<BinaryNode<T>>();
+    	liste=getItemsInOrder();
+    	for (BinaryNode<T> item: liste){
+    		
+    		return item.toString();
+    	}
         return "[1, 2, 3]";
     }
 }

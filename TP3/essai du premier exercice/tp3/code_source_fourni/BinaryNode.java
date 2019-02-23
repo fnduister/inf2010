@@ -11,15 +11,13 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // O(1)
     public BinaryNode(T data) {
     	this.data=data;//objet courant pointé par this=data
-
+       
     }
 
     // TODO: on retourne la donnee voulue
     // O(1)
     public T getData() {
-    	if(this.data==null)//pertinence?
-    		return null;
-    	else 
+    	
     		return data;
     }
 
@@ -30,23 +28,28 @@ public class BinaryNode<T extends Comparable<? super T> > {
     	//une fois qu'on arrive a la feuille
     	if(item.compareTo(data) <=0){
     		//si on est sur un noeud ayant des descendants
-    		if(left.data!=null)
-    			left.insert(item);
+    		if(left==null) {
+    			left=new BinaryNode<T>(item);
+    			left.data=item;
+    			
+    		}
     		// si on arrive a la feuille
     		else {
-    			left.data=item;
+    			left.insert(item);
     			return;//on sort de la méthode une fois l'insertion effectué
     		}
     		
     	}
     	else
     	{
-    		//on rapelle la methode insert si on est sur un noeud ayant des descendants
-    		if(right.data!=null)
-    			right.insert(item);
+    		//on rappelle la methode insert si on est sur un noeud ayant des descendants
+    		if(right==null) {
+    			right=new BinaryNode<T>(item);
+    			right.data=item;
+    		}
     		// si on arrive a la feuille , on insert
     		else {
-    			right.data=item;
+    			right.insert(item);
     			return;//on sort de la méthode une fois l'insertion effectué
     		}
     	}
@@ -60,13 +63,13 @@ public class BinaryNode<T extends Comparable<? super T> > {
     	//comparer l'item avec le noeud courant 
     	if(item.compareTo(data)==0)
     		return true;//renvoyer vrai si le noeud actuel est egale l'item
-        if(right.data!=null && right.data.compareTo(item)>0) { //parcourir le noeud droit si celui est supérieur a l'item
-    		if(right.contains(item))
+        if(item.compareTo(data)>0) { //parcourir le noeud droit si celui est supérieur a l'item
+    		if(right !=null && right.contains(item))
     			return true; //renvoyer vrai si le noeud droit contient l'item
         
     	}
-    	if (left.data!=null && left.data.compareTo(item)<0) {//parcourir le noeud droit si celui est supérieur a l'item 
-        	if(left.contains(item))
+    	if (item.compareTo(data)<0 ) {//parcourir le noeud droit si celui est supérieur a l'item 
+        	if(left!=null && left.contains(item))
         		return true;//renvoyer vrai si le noeud gauche contient l'item
         	
         }	
@@ -79,33 +82,58 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // O(n)
     public int getHeight() {
 
-    	if(data!=null)
-    		return 1+Math.max(right.getHeight(),left.getHeight());
-    	return -1;
+    	if(data==null ) {
+    		return -1;
+    	}
+    	if(right!=null && left !=null) {
+    			return 1+Math.max(right.getHeight(),left.getHeight());
+    		}
+    	
+    	else if (right==null && left!=null) {
+    			return 1+left.getHeight();		
+    		}
+    	else if (left==null && right !=null) {
+    			return 1+right.getHeight();	
+    		
+    	}
+    	
+    	return 0;
+    		
+    	
     }   
 
     // TODO: l'ordre d'insertion dans la liste est l'ordre logique
     // de maniÃ¨re que le plus petit item sera le premier inserÃ©
     // O(n)
     public void fillListInOrder(List<BinaryNode<T>> result) {
-    	//determiner l'élément le plus a gauche
-    	BinaryNode<T> datamin=null;
-    	BinaryNode<T> variable = null;
-    	if(left.data!=null)
-    		variable=left;//new BinaryNode(left.data);//revoir la copie
     	
-    		
-    	while(variable.left!=null) {	
-    		if(variable.left==null) {
-    			datamin=variable;//on a la valeur la plus petite 
-    			//remonter l,arbre 
-    			result.add(datamin);
+    	    if (data==null)
+    	    	return;
+    	
+    		if(right==null && left ==null) {//si le noeud courant n'a pas d'enfants
     			
-    			break;
+    			result.add(this);//ajouter directement le noeud courant
     		}
-    		variable=left;
-    	
-    	}
+    		
+    		if(left!=null &&left.getHeight()==0){// si le noeud a exactement un enfant gauche
+    			result.add(left);//ajouter l'enfant
+    			result.add(this);//puis ajouter le noeud courant
+    		
+   
+    		
+    		if (left!=null && left.getHeight()!=0)
+    			left.fillListInOrder(result); //si le noeud courant a un sous arbre d'enfant gauche appelle recursivement la fonction listFillInOrder
+    			
+		
+    		if(right!=null && right.getHeight()==0) {// si le noeud a exactement un enfant droit
+    			
+    			result.add(right);//ajouter l'enfant
+    		}
+    		if (right!=null && right.getHeight()!=0) {
+	    			right.fillListInOrder(result);//sinon appeler a nouveau la fonction filllistInOrder pour cet sous-arbre
+	    		}
+    		}
+    			
     		
     	
     }
