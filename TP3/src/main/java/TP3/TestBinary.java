@@ -150,12 +150,12 @@ public class TestBinary {
                 list.add(next);
             }
             Collections.sort(list);
-            //String inOrder = tree.toStringInOrder();
+            String inOrder = tree.toStringInOrder();
             String sortedArray = Arrays.toString(list.toArray());
-            //isGood &= inOrder.equals(sortedArray);
+            isGood &= inOrder.equals(sortedArray);
         }
         long duration = (System.nanoTime() - startTime);
-        System.out.print(duration);
+        System.out.println(duration);
         TestHelper.printTest(isGood && duration < 1600000000);
     }
 
@@ -178,6 +178,7 @@ public class TestBinary {
             isGood &= tree.contains(randInt);
         }
         long duration = (System.nanoTime() - startTime);
+        System.out.println(duration);
         TestHelper.printTest(isGood && duration < 500000000);
     }
 
@@ -193,6 +194,7 @@ public class TestBinary {
             isGood &= max - 1 == tree.getHeight();
         }
         long duration = (System.nanoTime() - startTime);
+        System.out.println(duration);
         TestHelper.printTest(isGood && duration < 1600000000);
     }
 }

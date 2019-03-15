@@ -11,6 +11,7 @@ public class BinaryNode<T extends Comparable<? super T>> {
 	// O(1)
 	public BinaryNode(T data) {
 		this.data = data;// objet courant point� par this=data
+		left = right = null;
 	}
 
 	// TODO: on retourne la donnee voulue
@@ -28,29 +29,25 @@ public class BinaryNode<T extends Comparable<? super T>> {
 			// si on est sur un noeud ayant des descendants
 			if (left == null) {
 				left = new BinaryNode<T>(item);
-				left.data = item;
 			}
 			// si on arrive a la feuille
 			else {
 				left.insert(item);
-
 				// est ce vraiment utile de faire ce return?
-				return;// on sort de la m�thode une fois l'insertion effectu�
+				// return;// on sort de la m�thode une fois l'insertion effectu�
 			}
 
 		} else {
 			// on rappelle la methode insert si on est sur un noeud ayant des descendants
 			if (right == null) {
 				right = new BinaryNode<T>(item);
-				right.data = item;
 			}
 			// si on arrive a la feuille , on insert
 			else {
 				right.insert(item);
-				return;// on sort de la m�thode une fois l'insertion effectu�
+				// return;// on sort de la m�thode une fois l'insertion effectu�
 			}
 		}
-
 	}
 
 	// TODO: est-ce que l'item fais partie du noeuds courant
@@ -84,8 +81,7 @@ public class BinaryNode<T extends Comparable<? super T>> {
 
 		if (right != null && left != null) {
 			return 1 + Math.max(right.getHeight(), left.getHeight());
-		}
-		else if (right == null && left != null) {
+		} else if (right == null && left != null) {
 			return 1 + left.getHeight();
 		} else if (left == null && right != null) {
 			return 1 + right.getHeight();
@@ -107,29 +103,33 @@ public class BinaryNode<T extends Comparable<? super T>> {
 			result.add(this);// ajouter directement le noeud courant
 			return;
 		}
-		if(left != null)
+		if (left != null)
 			left.fillListInOrder(result);
 
 		result.add(this);
 
-		if(right != null)
+		if (right != null)
 			right.fillListInOrder(result);
 
-		// if (left != null && left.getHeight() == 0) {// si le noeud a exactement un enfant gauche
-		// 	result.add(left);// ajouter l'enfant
-		// 	result.add(this);// puis ajouter le noeud courant
+		// if (left != null && left.getHeight() == 0) {// si le noeud a exactement un
+		// enfant gauche
+		// result.add(left);// ajouter l'enfant
+		// result.add(this);// puis ajouter le noeud courant
 
-		// 	if (left != null && left.getHeight() != 0)
-		// 		left.fillListInOrder(result); // si le noeud courant a un sous arbre d'enfant gauche appelle recursivement la
-		// 																	// fonction listFillInOrder
+		// if (left != null && left.getHeight() != 0)
+		// left.fillListInOrder(result); // si le noeud courant a un sous arbre d'enfant
+		// gauche appelle recursivement la
+		// // fonction listFillInOrder
 
-		// 	if (right != null && right.getHeight() == 0) {// si le noeud a exactement un enfant droit
+		// if (right != null && right.getHeight() == 0) {// si le noeud a exactement un
+		// enfant droit
 
-		// 		result.add(right);// ajouter l'enfant
-		// 	}
-		// 	if (right != null && right.getHeight() != 0) {
-		// 		right.fillListInOrder(result);// sinon appeler a nouveau la fonction filllistInOrder pour cet sous-arbre
-		// 	}
+		// result.add(right);// ajouter l'enfant
+		// }
+		// if (right != null && right.getHeight() != 0) {
+		// right.fillListInOrder(result);// sinon appeler a nouveau la fonction
+		// filllistInOrder pour cet sous-arbre
+		// }
 		// }
 
 	}

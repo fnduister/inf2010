@@ -1,0 +1,39 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "SAC.Main",
+            "projectName": "Sac"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Pile",
+            "request": "launch",
+            "mainClass": "SAC.Pile",
+            "projectName": "Sac"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - File",
+            "request": "launch",
+            "mainClass": "SAC.File",
+            "projectName": "Sac"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Sac",
+            "request": "launch",
+            "mainClass": "SAC.Sac",
+            "projectName": "Sac"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - App",
+            "request": "launch",
+            "mainClass": "SAC.App",
+            "projectName": "Sac"
+        }
+    ]
+}
