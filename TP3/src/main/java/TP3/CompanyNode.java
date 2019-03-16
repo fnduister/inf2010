@@ -11,15 +11,31 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // O(1)
     public CompanyNode(Integer data) {
         money = data;
-        childs = new BinarySearchTree<CompanyNode>();
+        childs = new BinarySearchTree<CompanyNode>(this);
         worstChild = null;
     }
 
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
     public void buy(CompanyNode item) {
-        childs.insert(item);//ajout de l'item � la compagnie ?? a v�rifier
-        money+=item.getMoney();//mise a jour du montant en banque
+        childs.insert(item);// ajout de l'item � la compagnie ?? a v�rifier
+        money += item.getMoney();// mise a jour du montant en banque
+
+        // determiner le worst child
+        if (worstChild == null) {
+            if (item.worstChild != null) {
+                worstChild = item.worstChild;
+            } else {
+                worstChild = item;
+            }
+        } else {
+            if (item.worstChild != null) {
+                if (worstChild.getMoney() > item.worstChild.getMoney())
+                    worstChild = item.worstChild;
+            } else if (worstChild.getMoney() > item.getMoney()) {
+                worstChild = item;
+            }
+        }
     }
 
     // TODO: on retourne le montant en banque de la compagnie

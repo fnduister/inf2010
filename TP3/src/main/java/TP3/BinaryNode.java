@@ -110,27 +110,5 @@ public class BinaryNode<T extends Comparable<? super T>> {
 
 		if (right != null)
 			right.fillListInOrder(result);
-
-		// if (left != null && left.getHeight() == 0) {// si le noeud a exactement un
-		// enfant gauche
-		// result.add(left);// ajouter l'enfant
-		// result.add(this);// puis ajouter le noeud courant
-
-		// if (left != null && left.getHeight() != 0)
-		// left.fillListInOrder(result); // si le noeud courant a un sous arbre d'enfant
-		// gauche appelle recursivement la
-		// // fonction listFillInOrder
-
-		// if (right != null && right.getHeight() == 0) {// si le noeud a exactement un
-		// enfant droit
-
-		// result.add(right);// ajouter l'enfant
-		// }
-		// if (right != null && right.getHeight() != 0) {
-		// right.fillListInOrder(result);// sinon appeler a nouveau la fonction
-		// filllistInOrder pour cet sous-arbre
-		// }
-		// }
-
 	}
 }

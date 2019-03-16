@@ -10,7 +10,7 @@ public class Main {
         TestBinary testBinary = new TestBinary();
         testBinary.test();
 
-        // TestCompany testCompany = new TestCompany();
-        // testCompany.test();
+        TestCompany testCompany = new TestCompany();
+        testCompany.test();
     }
 }

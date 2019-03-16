@@ -13,11 +13,9 @@ public class TestCompany {
             if (!m.getName().equals("test")) {
                 try {
                     m.invoke(this);
-                }
-                catch (InvocationTargetException e) {
+                } catch (InvocationTargetException e) {
                     TestHelper.printError(e.getTargetException().getCause().getMessage());
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -76,30 +74,16 @@ public class TestCompany {
 
     private void testWorstChild() {
         CompanyTree tree = initTest();
+        System.out.println(tree.getWorstChildMoney());
+
         TestHelper.printTest(tree.getWorstChildMoney() == -45);
     }
 
     private void testPrint() {
         CompanyTree tree = initTest();
-        String expected =
-                "402\n" +
-                " > 169\n" +
-                " >  > 40\n" +
-                " >  >  > 10\n" +
-                " >  >  > -10\n" +
-                " >  > 35\n" +
-                " >  >  > 15\n" +
-                " >  > 19\n" +
-                " >  > 15\n" +
-                " > 78\n" +
-                " >  > 33\n" +
-                " >  > -45\n" +
-                " >  >  > 10\n" +
-                " >  >  > -5\n" +
-                " > 55\n" +
-                " >  > 25\n" +
-                " >  >  > 4\n" +
-                " >  >  >  > -1\n";
+        String expected = "402\n" + " > 169\n" + " >  > 40\n" + " >  >  > 10\n" + " >  >  > -10\n" + " >  > 35\n"
+                + " >  >  > 15\n" + " >  > 19\n" + " >  > 15\n" + " > 78\n" + " >  > 33\n" + " >  > -45\n"
+                + " >  >  > 10\n" + " >  >  > -5\n" + " > 55\n" + " >  > 25\n" + " >  >  > 4\n" + " >  >  >  > -1\n";
         TestHelper.printTest(tree.getTreeInOrder().equals(expected));
     }
 }
