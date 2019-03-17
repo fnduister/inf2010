@@ -4,7 +4,8 @@ public class CompanyTree {
 
     private CompanyNode root;
 
-    public CompanyTree() { }
+    public CompanyTree() {
+    }
 
     // TODO: initialisation
     public CompanyTree(CompanyNode item) {
@@ -14,7 +15,7 @@ public class CompanyTree {
     // TODO: une compagnie mère achete une autre compagnie
     // O(n)
     public void buy(CompanyNode item) {
-        root.buy(item);//ajout de l'item � la compagnie ?? a v�rifier
+        root.buy(item);// ajout de l'item � la compagnie ?? a v�rifier
     }
 
     // TODO: on retourne le montant en banque de la compagnie mère
@@ -34,7 +35,9 @@ public class CompanyTree {
     // de la compagnie mère et de ses enfants
     // O(1)
     public String getTreeInOrder() {
-
-        return "";
+        StringBuilder stringInOrder = new StringBuilder("");
+        String prefix = "";
+        root.fillStringBuilderInOrder(stringInOrder, "");
+        return stringInOrder.toString();
     }
 }

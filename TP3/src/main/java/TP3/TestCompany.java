@@ -74,8 +74,6 @@ public class TestCompany {
 
     private void testWorstChild() {
         CompanyTree tree = initTest();
-        System.out.println(tree.getWorstChildMoney());
-
         TestHelper.printTest(tree.getWorstChildMoney() == -45);
     }
 
