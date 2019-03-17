@@ -1,5 +1,4 @@
 package TP3;
-
 import java.util.List;
 
 public class CompanyNode implements Comparable<CompanyNode> {
@@ -18,24 +17,45 @@ public class CompanyNode implements Comparable<CompanyNode> {
     // TODO: la compagnie courante achete une autre compagnie
     // O(log(n))
     public void buy(CompanyNode item) {
-        childs.insert(item);// ajout de l'item � la compagnie ?? a v�rifier
+        childs.insert(item);// ajout de l'item ï¿½ la compagnie ?? a vï¿½rifier
         money += item.getMoney();// mise a jour du montant en banque
 
         // determiner le worst child
-        if (worstChild == null) {
-            if (item.worstChild != null) {
-                worstChild = item.worstChild;
-            } else {
-                worstChild = item;
-            }
-        } else {
-            if (item.worstChild != null) {
-                if (worstChild.getMoney() > item.worstChild.getMoney())
-                    worstChild = item.worstChild;
-            } else if (worstChild.getMoney() > item.getMoney()) {
-                worstChild = item;
-            }
+        
+        if(worstChild ==null) { // si le pire enfant n'existe pas 
+        	worstChild=item; // on assigne automatiquement le parametre item comme pire enfant
+        	if(item.worstChild!=null) { // si  le pire enfant d'item existe 
+        		
+        		if(item.compareTo(item.worstChild)==-1) { // si item a une valeur  inférieur a celle de son pire enfant
+        			
+        			worstChild=item.worstChild; // le pire enfant devient celui de item
+        			
+        		}
+        		
+        	}
+        	
+        	
         }
+        else {
+        	
+        	if(item.compareTo(worstChild)==-1) { // si item a une valeur inférieur a celle du pire enfant existant
+        		
+        		worstChild=item;//le pire enfant devient item
+        	}
+        	
+        	if(item.worstChild!=null) {// si le pire enfant d'item existe
+        		
+        		if(item.worstChild.compareTo(worstChild)==-1) { // et si ce dernier a une valeur inférieur a celle du pire enfant courant
+        			
+        			worstChild=item.worstChild; // le pire enfant devient le pire enfant d'item
+        			
+        		}
+        	}
+        	
+        	
+        }
+    
+        
     }
 
     // TODO: on retourne le montant en banque de la compagnie
