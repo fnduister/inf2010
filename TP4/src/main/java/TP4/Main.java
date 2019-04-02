@@ -20,7 +20,6 @@ public class Main {
       for (i = 11, j = 0; j != numItems; i = (i + 37), j++) {
          heap.offer(i);
          items[j] = i;
-
          i %= numItems;
       }
 

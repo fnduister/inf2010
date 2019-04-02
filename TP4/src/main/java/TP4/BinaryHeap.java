@@ -26,8 +26,11 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		array = items;
 		currentSize = array.length;// mise a jour de la taille du tableau
 		if (min) {
+
 			buildMinHeap();
+
 		} else {
+
 			buildMaxHeap();
 		}
 	}
@@ -43,11 +46,20 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		if (array[currentSize + 1] == null) {// tjrs vrai // mettre l'�lement a la derniere position du tableau --revoir
 			array[currentSize + 1] = x;
 			currentSize++;// enlevable
+
 		}
 
 		if (min) {
+
 			int position = currentSize;
 			while (array[position / 2] != null && array[position / 2].compareTo(x) >= 0 && position > 1) {// si le
+																											// parent de
+																											// x a une
+																											// valeur
+																											// qui lui
+																											// est
+																											// sup�rieur
+
 				// if(array[position/2]!=null && array[position/2].compareTo(x)>0)
 				position = position / 2;// chercher la position tel que l'�lement a une valeur plus petite que x
 			}
@@ -71,6 +83,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 			int position = currentSize;
 			while (array[position / 2] != null && array[position / 2].compareTo(x) <= 0 && position > 1) {// si le
+																											// parent de
+																											// x a une
+																											// valeur
+																											// qui lui
+																											// est
+																											// sup�rieur
+
 				// if(array[position/2]!=null && array[position/2].compareTo(x)>0)
 				position = position / 2;// chercher la position tel que l'�lement a une valeur plus petite que x
 			}
@@ -97,7 +116,6 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	public AnyType peek() {
 		if (!isEmpty())
 			return array[1];
-
 		return null;
 	}
 
@@ -125,34 +143,42 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		// COMPLETEZ
 		int position = currentSize;
 		if (position > 0) {
-			for (int i = position / 2; i >= 1; i--) {
-
+			for (int i = position / 2; i >= 0; i--) {
 				percolateDownMinHeap(i, array.length);
 			}
 		}
 		// si le tableau commence a l'index 0 on le met a l'index 1
-
 		if (array[0] != null) { // decaler les �l�ments afin qu'ils commencent a 1
-
 			// doubler le tableau
-			AnyType[] newArray;
-
-			newArray = (AnyType[]) new Comparable[array.length * 2];
+			AnyType[] newArray = (AnyType[]) new Comparable[array.length + 1];
 			// newArray = (AnyType []) new Comparable[ array.length +1 ];
 			for (int i = 0; i < array.length; i++)
 				newArray[i + 1] = array[i];
 			array = newArray;
-
 		}
-
 	}
 
 	private void buildMaxHeap() {
 		// COMPLETEZ
 
+		/*
+		 * AnyType[] arraytemp = (AnyType[]) new Comparable[ currentSize];
+		 * 
+		 * //faire une copie par valeur for(int i=0;i<array.length;i++) {
+		 * arraytemp[i]=array[i];
+		 * 
+		 * 
+		 * } //vider le tableau array AnyType[] newArray = (AnyType[]) new
+		 * Comparable[1]; array=newArray; currentSize=0; this.min=false;
+		 * 
+		 * //arraytemp=array; for( int i = 0 ;i<arraytemp.length;i++ ){
+		 * 
+		 * this.offer(arraytemp[array.length-i-1]); }
+		 */
+
 		int position = array.length;
 		if (position > 0) {
-			for (int i = position / 2; i >= 0 && array[i] != null; i--) {
+			for (int i = position / 2; i >= 0; i--) {
 
 				percolateDownMaxHeap(i, array.length);
 			}
@@ -162,21 +188,13 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 		if (array[0] != null) { // decaler les �l�ments afin qu'ils commencent a 1
 
-			// doubler le tableau
-			AnyType[] newArray;
+			AnyType[] arraytemp = (AnyType[]) new Comparable[array.length + 1];
+			for (int i = 0; i < array.length; i++) {
 
-			newArray = (AnyType[]) new Comparable[array.length * 2];
-			// newArray = (AnyType []) new Comparable[ array.length +1 ];
-			for (int i = 0; i < array.length; i++)
-				newArray[i] = array[i];/// newArray[ i+1 ] = array[ i ];
-			array = newArray;
-
-			for (int i = array.length - 1; i > 0; i--) {
-
-				if (array[i] != null)
-					array[i] = array[i - 1];
+				arraytemp[i + 1] = array[i];
 			}
-			array[0] = null;
+			array = arraytemp;
+
 		}
 
 	}
@@ -226,10 +244,9 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	 */
 	private void percolateDownMinHeap(int hole, int size) {
 		if (array[0] != null) // si les �lements commence � l'index 0
-			percolateDownMinHeap(array, hole, size, false);
+			percolateDownMinHeap(array, hole, size - 1, false);
 		else
 			percolateDownMinHeap(array, hole, size, true);
-
 	}
 
 	/**
@@ -242,52 +259,17 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 			int size, boolean heapIndexing) {
 		// COMPLETEZ
 
-		/*
-		 * if(heapIndexing==false) { //decaler les �l�ments afin qu'ils commencent a 1
-		 * 
-		 * if(array.length<=size) {
-		 * 
-		 * 
-		 * //doubler le tableau AnyType [ ] newArray;
-		 * 
-		 * newArray = (AnyType []) new Comparable[ array.length * 2 ]; for( int i = 0; i
-		 * < array.length; i++ ) newArray[ i ] = array[ i ]; array = newArray; }
-		 * 
-		 * for(int i=0;i<array.length && array[i]!=null && array[i+1]!=null;i++) {
-		 * 
-		 * 
-		 * swapReferences(array,i,i+1);//c'est le cote au bout qui prend la valeur 1
-		 * 
-		 * } heapIndexing=true; } if(heapIndexing==true) {
-		 * 
-		 * int child=leftChild(hole,true); AnyType tmp = array[ hole ];
-		 * 
-		 * for( ; hole * 2 <= size; hole = child ) { child = hole * 2; if( child != size
-		 * && array[ child + 1 ].compareTo( array[ child ] ) < 0 ) child++; if( array[
-		 * child ].compareTo( tmp ) < 0 ) array[ hole ] = array[ child ]; else break; }
-		 * array[ hole ] = tmp;
-		 * 
-		 * 
-		 * }
-		 */
-		int child = leftChild(hole, heapIndexing);
+		int smallestChildIndex;
 
-		AnyType tmp = array[hole];
-		if (child > size) {
-			return;
-		} // sortir de la fonction si l'enfant en question deborde du tableau
-
-		for (; hole * 2 <= size; hole = child) {
-			child = hole * 2;
-			if (child != size && array[child + 1].compareTo(array[child]) < 0)
-				child++;
-			if (array[child].compareTo(tmp) < 0)
-				array[hole] = array[child];
+		for (; hole * 2 <= size; hole = smallestChildIndex) {
+			smallestChildIndex = leftChild(hole, heapIndexing);
+			if (smallestChildIndex < size && array[smallestChildIndex + 1].compareTo(array[smallestChildIndex]) <= 0)
+				smallestChildIndex++;// on recupere l'enfant de droite
+			if (array[smallestChildIndex].compareTo(array[hole]) < 0)
+				swapReferences(array, hole, smallestChildIndex);
 			else
 				break;
 		}
-		array[hole] = tmp;
-
 	}
 
 	/**
@@ -297,7 +279,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	private void percolateDownMaxHeap(int hole, int size) {
 		//
 		if (array[0] != null) // si les �lements commence � l'index 0
-			percolateDownMaxHeap(array, hole, size, false);
+			percolateDownMaxHeap(array, hole, size - 1, false);
 		else
 			percolateDownMaxHeap(array, hole, size, true);
 
@@ -311,67 +293,19 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	 */
 	private static <AnyType extends Comparable<? super AnyType>> void percolateDownMaxHeap(AnyType[] array, int hole,
 			int size, boolean heapIndexing) {
+
 		// COMPLETEZ
+		int biggestChildIndex;
 
-		/*
-		 * if(heapIndexing==false) { //decaler les �l�ments afin qu'ils commencent a 1
-		 * 
-		 * if(array.length<=size) {
-		 * 
-		 * 
-		 * //doubler le tableau AnyType [ ] newArray;
-		 * 
-		 * newArray = (AnyType []) new Comparable[ array.length * 2 ]; //newArray =
-		 * (AnyType []) new Comparable[ array.length +1 ]; for( int i = 0; i <
-		 * array.length; i++ ) newArray[ i ] = array[ i ]; array = newArray;
-		 * 
-		 * }
-		 * 
-		 * for(int i=0;i<size && array[i]!=null ;i++) {
-		 * 
-		 * 
-		 * //swapReferences(array,i,i+1);//c'est le cote au bout qui prend la valeur 1
-		 * 
-		 * 
-		 * array[size -i]=array[size -i-1]; } array[0]=null; heapIndexing=true; }
-		 * if(heapIndexing==true) {
-		 * 
-		 * 
-		 * 
-		 * int child=leftChild(hole,true); AnyType tmp = array[ hole ];
-		 * 
-		 * for( ; hole * 2 <= size; hole = child ) { child = hole * 2; if( child != size
-		 * && array[ child + 1 ].compareTo( array[ child ] ) > 0 ) child++; if( array[
-		 * child ].compareTo( tmp ) > 0 ) array[ hole ] = array[ child ]; else break; }
-		 * array[ hole ] = tmp;
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * }
-		 */
-
-		int child = leftChild(hole, heapIndexing);
-
-		AnyType tmp = array[hole];
-		if (child > size) {
-			return;
-		} // sortir de la fonction si l'enfant en question deborde du tableau
-
-		for (; hole * 2 <= size; hole = child) {
-			child = hole * 2;
-			if (child != size && array[child + 1].compareTo(array[child]) > 0)
-				child++;
-			if (array[child].compareTo(tmp) > 0)
-				array[hole] = array[child];
+		for (; hole * 2 <= size; hole = biggestChildIndex) {
+			biggestChildIndex = leftChild(hole, heapIndexing);
+			if (biggestChildIndex < size && array[biggestChildIndex + 1].compareTo(array[biggestChildIndex]) >= 0)
+				biggestChildIndex++;// on recupere l'enfant de droite
+			if (array[biggestChildIndex].compareTo(array[hole]) > 0)
+				swapReferences(array, hole, biggestChildIndex);
 			else
 				break;
 		}
-		array[hole] = tmp;
-
 	}
 
 	public static <AnyType extends Comparable<? super AnyType>> void heapSort(AnyType[] a) {
@@ -395,7 +329,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 			AnyType tmp = a[0];
 			a[0] = a[(a.length - 1) - i];
 			a[(a.length - 1) - i] = tmp;
-			percolateDownMinHeap(a, 0, a.length - i, true);
+			percolateDownMinHeap(a, 0, a.length - i - 1, false);
 		}
 
 	}
@@ -431,7 +365,12 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		// COMPLETEZ
 		// string temporaire
 		for (int i = 0; i < array.length; i++) {
-			outputString.concat(array[i].toString());
+			if (array[i] == null) {
+				i++;
+			}
+			;
+			outputString += (array[i].toString());
+			// outputString.concat(array[i].toString());
 		}
 		return outputString;
 	}
