@@ -153,7 +153,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	//COMPLETEZ
     	int position=currentSize;
     	if(position>0) {
-	    	for(int i=position/2;i>=1;i--) {
+	    	for(int i=position/2;i>=0;i--) {
 	    		
 	    		percolateDownMinHeap(i,array.length );
 	    	}
@@ -166,12 +166,12 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 			//doubler le tableau
 			AnyType [ ] newArray;
 			
-			newArray = (AnyType []) new Comparable[ array.length * 2  ];
+			newArray = (AnyType []) new Comparable[ array.length+1  ];
 			//newArray = (AnyType []) new Comparable[ array.length +1  ];
 			for( int i = 0; i < array.length; i++ )
 			    newArray[ i+1 ] = array[ i ];
-			array = newArray;
 			
+			array = newArray;
     	}
 		
 	
@@ -181,9 +181,32 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     {
 	//COMPLETEZ
     	
+    	/*AnyType[] arraytemp = (AnyType[]) new Comparable[ currentSize];
+    	
+    	//faire une copie par valeur 
+    	for(int i=0;i<array.length;i++) {
+    		arraytemp[i]=array[i];
+    		
+    		
+    	}
+    	//vider le tableau array
+    	AnyType[] newArray = (AnyType[]) new Comparable[1];
+    	array=newArray;
+    	currentSize=0;
+    	this.min=false;
+    
+    	//arraytemp=array;
+    	  for( int i = 0 ;i<arraytemp.length;i++ ){
+    		  
+    		  this.offer(arraytemp[array.length-i-1]);
+    	  }*/
+          
+    	  
+          
+    	
     	int position=array.length;
     	if(position>0) {
-	    	for(int i=position/2;i>=0 && array[i]!=null;i--) {
+	    	for(int i=position/2;i>=0 ;i--) {
 	    		
 	    		percolateDownMaxHeap(i,array.length );
 	    	}
@@ -194,28 +217,16 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     	if(array[0]!=null) { //decaler les éléments afin qu'ils commencent a 1
 		
 		
-			//doubler le tableau
-			AnyType [ ] newArray;
-			
-			newArray = (AnyType []) new Comparable[ array.length * 2  ];
-			//newArray = (AnyType []) new Comparable[ array.length +1  ];
-			for( int i = 0; i < array.length; i++ )
-			    newArray[ i ] = array[ i ];///  newArray[ i+1 ] = array[ i ];
-			array = newArray;
-			
+    		AnyType[] arraytemp = (AnyType[]) new Comparable[array.length +1];
+    		for(int i =0;i<array.length;i++) {
+    			
+    			arraytemp[i+1]=array[i];
+    		}
+    		array=arraytemp;
+    		
+    	}		
+				
 		
-		
-		for(int i=array.length-1;i>0  ;i--) {
-			
-			
-			
-		
-			if( array[i]!=null)
-				array[i]=array[i-1];
-		}
-		array[0]=null;
-		}
-	
     }
     
     public boolean isEmpty()
@@ -289,48 +300,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     {
 	//COMPLETEZ
     	
-    	/*
-    	if(heapIndexing==false) { //decaler les éléments afin qu'ils commencent a 1
-    		
-    		if(array.length<=size) {
-    			
-    			
-    			//doubler le tableau
-    			AnyType [ ] newArray;
-    			
-    			newArray = (AnyType []) new Comparable[ array.length * 2 ];
-    			for( int i = 0; i < array.length; i++ )
-    			    newArray[ i ] = array[ i ];
-    			array = newArray;
-    		}
-    		
-    		for(int i=0;i<array.length && array[i]!=null && array[i+1]!=null;i++) {
-    			
-    			
-    			swapReferences(array,i,i+1);//c'est le cote au bout qui prend la valeur 1
-    			
-    		}
-    		heapIndexing=true;
-    	}
-    	if(heapIndexing==true) {
-    		
-    		 int child=leftChild(hole,true);       
-    		 AnyType tmp = array[ hole ]; 
-    		 
-    	        for( ; hole * 2 <= size; hole = child ) { 
-    	        	child = hole * 2;             
-	    	        if( child != size && array[ child + 1 ].compareTo( array[ child ] ) < 0 )        
-	    	        	child++;            
-	    	        if( array[ child ].compareTo( tmp ) < 0 )           
-	    	        	array[ hole ] = array[ child ];             
-	    	        else                
-	    	        	break;       
-    	        }      
-    	        array[ hole ] = tmp;   
-    			
-    	
-    	}
-    	*/
+
         int child=leftChild(hole,heapIndexing);   
         
 		 AnyType tmp = array[ hole ]; 
@@ -338,7 +308,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		 
 	        for( ; hole * 2 <= size; hole = child ) { 
 	        	child = hole * 2;             
-  	        if( child != size && array[ child + 1 ].compareTo( array[ child ] ) < 0 )        
+  	        if( child != size && array[ child + 1 ].compareTo( array[ child ] ) <= 0 )        
   	        	child++;            
   	        if( array[ child ].compareTo( tmp ) < 0 )           
   	        	array[ hole ] = array[ child ];             
@@ -375,58 +345,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     {
 	//COMPLETEZ
 
-    	/*if(heapIndexing==false) { //decaler les éléments afin qu'ils commencent a 1
-    		
-    		if(array.length<=size) {
-    			
-    			
-    			//doubler le tableau
-    			AnyType [ ] newArray;
-    			
-    			newArray = (AnyType []) new Comparable[ array.length * 2  ];
-    			//newArray = (AnyType []) new Comparable[ array.length +1  ];
-    			for( int i = 0; i < array.length; i++ )
-    			    newArray[ i ] = array[ i ];
-    			array = newArray;
-    			
-    		}
-    		
-    		for(int i=0;i<size && array[i]!=null ;i++) {
-    			
-    			
-    			//swapReferences(array,i,i+1);//c'est le cote au bout qui prend la valeur 1
-    		
-    			
-    			array[size -i]=array[size -i-1];
-    		}
-    		array[0]=null;
-    		heapIndexing=true;
-    	}
-    	if(heapIndexing==true) {
-    		
-    		
-    		
-    		 int child=leftChild(hole,true);       
-    		 AnyType tmp = array[ hole ]; 
-    		 
-    	        for( ; hole * 2 <= size; hole = child ) { 
-    	        	child = hole * 2;             
-	    	        if( child != size && array[ child + 1 ].compareTo( array[ child ] ) > 0 )        
-	    	        	child++;            
-	    	        if( array[ child ].compareTo( tmp ) > 0 )           
-	    	        	array[ hole ] = array[ child ];             
-	    	        else                
-	    	        	break;       
-    	        }      
-    	        array[ hole ] = tmp;   
-    			
-    		
-    		
-    		
-    		
-    		
-    		
-    	}*/
+    	
   		
 	          int child=leftChild(hole,heapIndexing);   
           
@@ -435,7 +354,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
     		 
     	        for( ; hole * 2 <= size; hole = child ) { 
     	        	child = hole * 2;             
-	    	        if( child != size && array[ child + 1 ].compareTo( array[ child ] ) > 0 )        
+	    	        if( child != size && array[ child + 1 ].compareTo( array[ child ] ) >= 0 )        
 	    	        	child++;            
 	    	        if( array[ child ].compareTo( tmp ) > 0 )           
 	    	        	array[ hole ] = array[ child ];             
@@ -508,7 +427,9 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	//COMPLETEZ
 	//string temporaire
 	for(int i=0;i<array.length;i++) {
-	  outputString.concat(array[i].toString());
+		if(array[i]==null) {i++;};
+		outputString+=(array[i].toString());
+	  //outputString.concat(array[i].toString());
 	}
 	return outputString;
     }
