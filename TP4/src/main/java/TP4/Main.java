@@ -8,7 +8,7 @@ public class Main {
     */
    public static void main(String[] args) {
       // creer un monceau avec 22 elements et un tableau equivalent
-      int numItems = 22;
+      int numItems = 50;
       BinaryHeap<Integer> heap = new BinaryHeap<Integer>(true);
 
       Integer[] items = new Integer[numItems];
@@ -39,6 +39,8 @@ public class Main {
       heap = new BinaryHeap<Integer>(items, false);
       System.out.println("Monceau max contruit a partir d'un tableau:");
       System.out.println(heap.printFancyTree());
+      for (Integer item : items)
+         System.out.println(item);
 
       heap = new BinaryHeap<Integer>(items, true);
       System.out.println("Monceau min contruit a partir d'un tableau:");

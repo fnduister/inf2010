@@ -23,7 +23,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		// COMPLETEZ
 		// invoquez buildMinHeap() ou buildMaxHeap() en fonction du parametre min;
 
-		array = items;
+		array = items.clone();
 		currentSize = array.length;// mise a jour de la taille du tableau
 		if (min) {
 
