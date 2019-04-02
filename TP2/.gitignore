@@ -1,0 +1,6 @@
+/target
+/src/test
+*.xml
+*.docx
+*.xlsx
+*.zip
