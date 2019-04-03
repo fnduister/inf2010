@@ -34,10 +34,7 @@ public class TestBinary {
             tree.insert(next);
             list.add(next);
         }
-        Collections.sort(list);
-        String inOrder = tree.toStringInOrder();
-        String sortedArray = Arrays.toString(list.toArray());
-        TestHelper.printTest(inOrder.equals(sortedArray));
+        
     }
 
     private void testRandomContains() {

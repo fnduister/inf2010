@@ -1,5 +1,6 @@
 package TP4;
 
+import java.net.CacheResponse;
 import java.util.*;
 
 public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends AbstractQueue<AnyType> {
@@ -160,21 +161,6 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	private void buildMaxHeap() {
 		// COMPLETEZ
-
-		/*
-		 * AnyType[] arraytemp = (AnyType[]) new Comparable[ currentSize];
-		 * 
-		 * //faire une copie par valeur for(int i=0;i<array.length;i++) {
-		 * arraytemp[i]=array[i];
-		 * 
-		 * 
-		 * } //vider le tableau array AnyType[] newArray = (AnyType[]) new
-		 * Comparable[1]; array=newArray; currentSize=0; this.min=false;
-		 * 
-		 * //arraytemp=array; for( int i = 0 ;i<arraytemp.length;i++ ){
-		 * 
-		 * this.offer(arraytemp[array.length-i-1]); }
-		 */
 
 		int position = array.length;
 		if (position > 0) {
@@ -359,9 +345,75 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	}
 
+	int parent(int childPosition) {
+		return childPosition / 2;
+	}
+
+	public AnyType[] orderArrayWithLevels(int[] levels) {
+		int size = currentSize + 1;
+		AnyType[] orderedArray = (AnyType[]) new Comparable[size + 1];
+		int[] frequence = new int[size];
+		int[] newLevels = new int[size + 1];
+
+		// initialisation du tableau
+		for (int i = 1; i < size; i++)
+			frequence[i] = 0;
+
+		int position = 1;
+		int nouvellePosition = 1;
+
+		while (frequence[1] != 3) {
+			switch (frequence[position]) {
+			case 0:
+				orderedArray[nouvellePosition] = array[position];
+				newLevels[nouvellePosition++] = levels[position];
+				frequence[position]++;
+				if (leftChild(position, true) < size)
+					position = leftChild(position, true);
+				else {// on a pas d'enfant
+					position = parent(position);
+				}
+				break;
+			case 1:
+				frequence[position]++;
+				if (leftChild(position, true) < size - 1)
+					position = leftChild(position, true) + 1;// right child
+				else {// on a pas d'enfant
+					nouvellePosition++;
+					position = parent(position);
+				}
+				break;
+			case 2:
+				frequence[position]++;
+				position = parent(position);
+				break;
+			default:
+				break;
+			}
+		}
+		levels = newLevels;
+		return orderedArray;
+	}
+
 	public String nonRecursivePrintFancyTree() {
 		String outputString = "";
+		AnyType[] orderedArray = (AnyType[]) new Comparable[currentSize];
 
+		int[] levels = new int[currentSize + 2];
+		int valeur = 0; // le premier niveau
+		int t = 1;
+
+		while (t < currentSize) {
+			for (int j = 0; j < Math.pow(2, valeur); j++) {
+				levels[t++] = valeur;
+				if (t > currentSize)
+					break;
+			}
+			valeur++;
+		}
+
+		orderedArray = orderArrayWithLevels(levels);
+		
 		// COMPLETEZ
 		// string temporaire
 		for (int i = 0; i < array.length; i++) {
