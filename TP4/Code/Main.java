@@ -1,3 +1,4 @@
+package tp4;
 import java.util.*; 
 
 
@@ -70,8 +71,36 @@ public class Main
       /*
        * Ajouter appels pour repondre a la question
        **/
+      //test de la fonction poll
+      BinaryHeap<Integer> heap1 = new BinaryHeap<Integer>(true);
+      // en inserant les elements un a un
+      for( Integer item : items)
+    	  heap1.offer( item );
+      Integer valeurmin =heap1.poll();
+      
+      BinaryHeap<Integer> heap2 = new BinaryHeap<Integer>(false);
+      // en inserant les elements un a un
+      for( Integer item : items)
+    	  heap2.offer( item );
+      Integer valeurmax =heap2.poll();
+      
+      
+      System.out.print("La valeur min du monceau est "+valeurmin.intValue() +" et la valeur max est "+valeurmax.intValue());
+      
+      
+      
+      //test de l'iterateur
+     // PriorityQueue ();
+      Iterator<Integer> iterateur=heap1.iterator();
+      //test de hasNext
+    //  if(iterateur.hasNext())
+    	//  Integer variable=(Integer)iterateur.next();
+      
    }
-
+  
+   
+   
+  
    private static <AnyType> 
    String printArray(AnyType[] a)
    {
