@@ -66,6 +66,11 @@ public class Main {
       /*
        * Ajouter appels pour repondre a la question
        **/
+
+      Collections.sort(list);
+      String inOrder = tree.toStringInOrder();
+      String sortedArray = Arrays.toString(list.toArray());
+      TestHelper.printTest(inOrder.equals(sortedArray));
    }
 
    private static <AnyType> String printArray(AnyType[] a) {
