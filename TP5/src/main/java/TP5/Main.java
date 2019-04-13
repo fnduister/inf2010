@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		Graph g = new Graph();
 		
-		// Partie 1: A completer : Création du graphe
+		// Partie 1: A completer : CrÃ©ation du graphe
 		List<Node> listNodes = new ArrayList<Node>();
 		Node A = new Node(0, "A");
 		Node B = new Node(1, "B");
@@ -43,6 +43,7 @@ public class Main {
 		listEdges.add(new Edge(D, G, 5));
 		listEdges.add(new Edge(E, B, 3));
 		listEdges.add(new Edge(E, C, 3));
+		listEdges.add(new Edge(E, F, 1));
 		listEdges.add(new Edge(F, C, 5));
 		listEdges.add(new Edge(F, D, 6));
 		listEdges.add(new Edge(F, E, 1));
@@ -52,15 +53,15 @@ public class Main {
 		
 		g.setEdges(listEdges);
 		g.setNodes(listNodes);
-		// Partie 2: A completer : Implémentation de l’algorithme Dijkstra
+		// Partie 2: A completer : ImplÃ©mentation de lâ€™algorithme Dijkstra
 		Dijkstra d = new Dijkstra(g);
 		
-		d.findPath(/* Spécifiez les paramètres */);
+		d.findPath(A,G);
 		
 		d.afficherTable();
 
 		// Partie 3 : Afficher le chemin le plus court
-		System.out.println(d.afficherCourtChemin(/* Spécifiez les paramètres */));
+		//System.out.println(d.afficherCourtChemin(/* SpÃ©cifiez les paramÃ¨tres */));
 	
 	}
 }
