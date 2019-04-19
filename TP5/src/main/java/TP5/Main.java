@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-	
+
 	public static void main(String[] args) {
 		Graph g = new Graph();
-		
+
 		// Partie 1: A completer : CrÃ©ation du graphe
 		List<Node> listNodes = new ArrayList<Node>();
 		Node A = new Node(0, "A");
@@ -50,18 +50,19 @@ public class Main {
 		listEdges.add(new Edge(F, G, 2));
 		listEdges.add(new Edge(G, D, 5));
 		listEdges.add(new Edge(G, F, 2));
-		
+
 		g.setEdges(listEdges);
 		g.setNodes(listNodes);
 		// Partie 2: A completer : ImplÃ©mentation de lâ€™algorithme Dijkstra
 		Dijkstra d = new Dijkstra(g);
-		
-		d.findPath(A,G);
-		
+
+		d.findPath(A, G);
+
 		d.afficherTable();
 
 		// Partie 3 : Afficher le chemin le plus court
-		//System.out.println(d.afficherCourtChemin(/* SpÃ©cifiez les paramÃ¨tres */));
-	
+		System.out.println("------------------------------------------------------- ");
+		System.out.println(d.afficherCourtChemin(A, G));
+
 	}
 }
